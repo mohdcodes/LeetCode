@@ -7,6 +7,10 @@ Features✅:
 1.) Daily Updates: Expect daily posts of my solutions to various LeetCode problems, helping you stay engaged with DSA practice.
 2.) Problem Links: Direct links to the respective LeetCode problems are provided, allowing for easy reference and further exploration.
 
-LeetCode Profile:
+LeetCode Profile:  https://leetcode.com/iamSUKUNA/
 
-Leetcode-> https://leetcode.com/iamSUKUNA/
+Getting Started🚀:
+
+To get started with this repo,  follow these steps:
+
+Clone the repository✅: git clone https://github.com/iamSUKUNA/LeetCode.git
