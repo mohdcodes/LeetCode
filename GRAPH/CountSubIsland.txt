@@ -1,0 +1,88 @@
+// Count Sub Islands (LeetCode 1905)(Medium)
+
+BFS SOLUTION
+
+int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+	int n = grid1.size(),m=grid1[0].size();
+	vector<vector<int>> vis(n, vector<int>(m));
+	int res = 0;
+	for(int i=0;i<n;i++) {
+		for(int j=0;j<m;j++){
+			if(grid2[i][j] == 1 && vis[i][j]==0){
+				if(bfs(grid1,grid2,vis,i,j,n,m)) {
+					res++;
+				}
+			}
+		}
+	}
+	return res;
+}
+    bool bfs(vector<vector<int>>& grid1, vector<vector<int>>& grid2, vector<vector<int>>& vis, int i,int j,int n, int m) {
+	queue<pair<int, int>> q;
+	q.push({i,j});
+	vis[i][j] = 1;
+	bool res = true;
+	while(!q.empty()) {
+		int r = q.front().first, c = q.front().second;
+		if(grid1[r][c] == 0) res=false;
+		q.pop();
+		int dx[] = {0, 1, 0, -1};
+		int dy[] = {1, 0, -1, 0};
+
+		for(int i = 0; i < 4; i++) {
+			int newX = dx[i] + r;
+			int newY = dy[i] + c;
+
+			if(newX >= 0 && newX < n && newY >= 0 && newY < m && grid2[newX][newY] == 1 && vis[newX][newY] == 0) {
+				q.push({newX, newY});
+				vis[newX][newY] = 1;
+			}
+		}
+	}   
+	return res;
+}
+------------------------------------------------------------------
+DFS SOLUTION
+
+ bool dfs(vector<vector<int>>& grid1, vector<vector<int>>& grid2, int row, int col, 
+    vector<vector<int>>& visited, int dxdy[][4], bool& flag){
+        int n = grid1.size();
+        int m = grid1[0].size();
+
+        if(grid1[row][col] == 0){
+            flag = false;
+        }
+        
+        visited[row][col] = 1;
+
+        for(int i=0; i<4; i++){
+            int newrow = row + dxdy[i][0];
+            int newcol = col + dxdy[i][1];
+            if(newrow>=0 && newcol>=0 && newrow<n && newcol<m && !visited[newrow][newcol] && 
+            grid2[newrow][newcol]){
+                dfs(grid1, grid2, newrow, newcol, visited, dxdy, flag);
+            }
+        } 
+        return flag;  
+    }
+public:
+    int countSubIslands(vector<vector<int>>& grid1, vector<vector<int>>& grid2) {
+        int n = grid1.size();
+        int m = grid1[0].size();
+        int dxdy[][4] = {{-1,0}, {0,1}, {1,0}, {0,-1}};
+        vector<vector<int>> visited(n, vector<int>(m,0));
+
+        int count = 0;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(grid2[i][j] == 1 && !visited[i][j]){
+                    bool flag = true;
+                    if(dfs(grid1, grid2, i, j, visited, dxdy, flag)){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
