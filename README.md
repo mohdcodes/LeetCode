@@ -11,6 +11,6 @@ LeetCode Profile:  https://leetcode.com/iamSUKUNA/
 
 Getting Started🚀:
 
-To get started with this repo,  follow these steps:
+To get started with this repo,
 
 Clone the repository✅: git clone https://github.com/iamSUKUNA/LeetCode.git
