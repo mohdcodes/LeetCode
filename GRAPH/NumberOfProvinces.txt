@@ -1,0 +1,76 @@
+DFS SOLUTION 
+ 
+ private:
+        void dfs(int node, vector<int> adjList[], vector<int>& vis){
+            vis[node]=1;
+            for(auto x : adjList[node]){
+                if(!vis[x]){
+                    dfs(x, adjList, vis);
+                }
+            }
+        }
+  public:
+    int numProvinces(vector<vector<int>> adj, int V) {
+        // code here
+        vector<int>adjList[V];
+        for(int i=0;i<V;i++){
+            for(int j=0;j<V;j++){
+                if(adj[i][j]==1 && i != j){
+                    adjList[i].push_back(j);
+                    adjList[j].push_back(i);
+                }
+            }
+        }
+        int count = 0;
+        vector<int>vis(V, 0);
+        for(int i=0;i<V;i++){
+            if(vis[i]==0){
+                count++;
+                dfs(i, adjList, vis);
+            }
+        }
+        return count;
+}
+
+---------------------------------------------------------------
+BFS SOLUTION
+
+private:
+        void bfs(vector<int> adjList[], vector<int>& vis, int node){
+            vis[node] = 1;
+            queue<int>q;
+            q.push(node);
+            while(!q.empty()){
+                int val = q.front();
+                q.pop();
+                for(auto neighbour : adjList[val]){
+                    if(!vis[neighbour]){
+                        vis[neighbour]=1;
+                        q.push(neighbour);
+                    }
+                }
+            }
+        }
+  public:
+    int numProvinces(vector<vector<int>> adj, int V) {
+        // code here
+        vector<int>adjList[V];
+        for(int i=0;i<V;i++)
+        {
+            for(int j=0;j<V;j++){
+                if(adj[i][j]==1 && i!=j){
+                    adjList[i].push_back(j);
+                    adjList[j].push_back(i);
+                }
+            }
+        }
+        int  count = 0;
+        vector<int>vis(V, 0);
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                count++;
+                bfs(adjList, vis, i);
+            }
+        }
+        return count;4
+    }
